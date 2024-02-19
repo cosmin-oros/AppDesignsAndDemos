@@ -13,13 +13,19 @@ const OnboardingScreen: React.FC = () => {
     setCurrentStep((prevStep) => prevStep + 1);
   };
 
+  const handleFinish = () => {
+    // Handle logic when the "Finish" button is pressed
+    setCurrentStep((prevStep) => prevStep + 1);
+    // You can navigate to the next screen or perform any other action here
+  };
+
   const renderOnboardingStep = () => {
     switch (currentStep) {
       case 1:
         return (
           <OnboardingStep
-            backgroundColor="#3498db"
-            title="Step 1"
+            backgroundColor="#8a2be2"
+            title="What is your name?"
             description="Welcome to Step 1. Provide your name and age."
             onNext={handleNext}
             onSkip={handleSkip}
@@ -28,17 +34,23 @@ const OnboardingScreen: React.FC = () => {
       case 2:
         return (
           <OnboardingStep
-            backgroundColor="#2ecc71"
-            title="Step 2"
+            backgroundColor="#ffd700"
+            title="When were you born?"
             description="This is Step 2. Add more information here."
             onNext={handleNext}
             onSkip={handleSkip}
           />
         );
       default:
-        return <View style={styles.completedScreen}>
-            <Text>Onboarding Completed!</Text>
-        </View>;
+        return (
+          <OnboardingStep
+            backgroundColor="#e75480"
+            title="What skills do you have?"
+            description="This is Step 3. Add more information here."
+            onNext={handleFinish}
+            onSkip={handleSkip}
+          />
+        );
     }
   };
 

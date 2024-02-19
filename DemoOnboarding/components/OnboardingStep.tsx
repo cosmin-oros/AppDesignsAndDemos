@@ -21,8 +21,9 @@ const OnboardingStep: React.FC<OnboardingStepProps> = ({
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.description}>{description}</Text>
       <View style={styles.buttonContainer}>
-        <Button title="Next" onPress={onNext} />
+        {/* change to touchable oppacity to change how they look and switch Nex to Finish on final step */}
         <Button title="Skip" onPress={onSkip} />
+        <Button title="Next" onPress={onNext} />
       </View>
     </View>
   );
