@@ -1,23 +1,39 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, SafeAreaView, Platform, StatusBar } from 'react-native';
 import OnboardingStep from '../components/OnboardingStep';
 import TopBar from '../components/TopBar';
 
 const OnboardingScreen: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
+  const [currentColor, setCurrentColor] = useState('#8a2be2');
+  const backgroundColors = ['#8a2be2', '#ffd700', '#e75480'];
 
   const handleNext = () => {
-    setCurrentStep((prevStep) => prevStep + 1);
+    if (currentStep < backgroundColors.length) {
+      setCurrentColor(backgroundColors[currentStep]);
+      setCurrentStep((prevStep) => prevStep + 1);
+    } else {
+      // Handle logic when all steps are completed
+    }
   };
 
   const handleSkip = () => {
-    setCurrentStep((prevStep) => prevStep + 1);
+    if (currentStep < backgroundColors.length) {
+      setCurrentColor(backgroundColors[currentStep]);
+      setCurrentStep((prevStep) => prevStep + 1);
+    } else {
+      // Handle logic when all steps are completed
+    }
   };
 
   const handleFinish = () => {
     // Handle logic when the "Finish" button is pressed
-    setCurrentStep((prevStep) => prevStep + 1);
-    // You can navigate to the next screen or perform any other action here
+    if (currentStep < backgroundColors.length) {
+      setCurrentColor(backgroundColors[currentStep]);
+      setCurrentStep((prevStep) => prevStep + 1);
+    } else {
+      // Handle logic when all steps are completed
+    }
   };
 
   const handleBackPress = () => {
@@ -33,7 +49,7 @@ const OnboardingScreen: React.FC = () => {
       case 1:
         return (
           <OnboardingStep
-            backgroundColor="#8a2be2"
+            backgroundColor={currentColor}
             title="What is your name?"
             description="Welcome to Step 1. Provide your name and age."
             onNext={handleNext}
@@ -43,7 +59,7 @@ const OnboardingScreen: React.FC = () => {
       case 2:
         return (
           <OnboardingStep
-            backgroundColor="#ffd700"
+            backgroundColor={currentColor}
             title="When were you born?"
             description="This is Step 2. Add more information here."
             onNext={handleNext}
@@ -53,7 +69,7 @@ const OnboardingScreen: React.FC = () => {
       default:
         return (
           <OnboardingStep
-            backgroundColor="#e75480"
+            backgroundColor={currentColor}
             title="What skills do you have?"
             description="This is Step 3. Add more information here."
             onNext={handleFinish}
@@ -63,22 +79,30 @@ const OnboardingScreen: React.FC = () => {
     }
   };
 
-  return (
-    <View style={styles.content}>
+  const renderTopBar = () => {
+    return (
       <TopBar
         onBackPress={handleBackPress}
         title="Sign Up"
         iconName="your-icon-name"
         onIconPress={handleIconPress}
+        color={currentColor}
       />
+    );
+  };
+
+  return (
+    <SafeAreaView style={[styles.content, { backgroundColor: currentColor }]}>
+      {renderTopBar()}
       {renderOnboardingStep()}
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   content: {
     flex: 1,
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
   completedScreen: {
     flex: 1,
