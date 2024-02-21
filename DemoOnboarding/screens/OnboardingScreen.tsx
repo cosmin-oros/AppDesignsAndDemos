@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import OnboardingStep from '../components/OnboardingStep';
+import TopBar from '../components/TopBar';
 
 const OnboardingScreen: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -17,6 +18,14 @@ const OnboardingScreen: React.FC = () => {
     // Handle logic when the "Finish" button is pressed
     setCurrentStep((prevStep) => prevStep + 1);
     // You can navigate to the next screen or perform any other action here
+  };
+
+  const handleBackPress = () => {
+    // Handle back button press
+  };
+
+  const handleIconPress = () => {
+    // Handle icon press
   };
 
   const renderOnboardingStep = () => {
@@ -56,6 +65,12 @@ const OnboardingScreen: React.FC = () => {
 
   return (
     <View style={styles.content}>
+      <TopBar
+        onBackPress={handleBackPress}
+        title="Sign Up"
+        iconName="your-icon-name"
+        onIconPress={handleIconPress}
+      />
       {renderOnboardingStep()}
     </View>
   );
