@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Text, SafeAreaView, Platform, StatusBar } from 'react-native';
 import OnboardingStep from '../components/OnboardingStep';
 import TopBar from '../components/TopBar';
+import { LottieAnimations } from '../constants';
 
 const OnboardingScreen: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [currentColor, setCurrentColor] = useState('#8a2be2');
-  const backgroundColors = ['#8a2be2', '#ffd700', '#e75480'];
+  const backgroundColors = ['#8a2be2', '#ffd700', '#8a2be2', '#e75480'];
 
   const handleNext = () => {
     if (currentStep < backgroundColors.length) {
@@ -51,29 +52,43 @@ const OnboardingScreen: React.FC = () => {
           <OnboardingStep
             backgroundColor={currentColor}
             title="What is your name?"
-            description="Welcome to Step 1. Provide your name and age."
+            description=""
             onNext={handleNext}
             onSkip={handleSkip}
+            lottieAnimation={LottieAnimations.name}
           />
         );
       case 2:
         return (
           <OnboardingStep
             backgroundColor={currentColor}
-            title="When were you born?"
-            description="This is Step 2. Add more information here."
-            onNext={handleNext}
+            title="What is your age?"
+            description=""
+            onNext={handleFinish}
             onSkip={handleSkip}
+            lottieAnimation={LottieAnimations.age}
+          />
+        );
+      case 3:
+        return (
+          <OnboardingStep
+            backgroundColor={currentColor}
+            title="What skills do you have?"
+            description=""
+            onNext={handleFinish}
+            onSkip={handleSkip}
+            lottieAnimation={LottieAnimations.skills}
           />
         );
       default:
         return (
           <OnboardingStep
             backgroundColor={currentColor}
-            title="What skills do you have?"
-            description="This is Step 3. Add more information here."
-            onNext={handleFinish}
+            title="When were you born?"
+            description=""
+            onNext={handleNext}
             onSkip={handleSkip}
+            lottieAnimation={LottieAnimations.born}
           />
         );
     }
