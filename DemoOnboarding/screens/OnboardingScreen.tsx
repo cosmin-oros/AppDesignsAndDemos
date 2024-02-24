@@ -56,6 +56,7 @@ const OnboardingScreen: React.FC = () => {
             onNext={handleNext}
             onSkip={handleSkip}
             lottieAnimation={LottieAnimations.name}
+            step={0}
           />
         );
       case 2:
@@ -67,6 +68,7 @@ const OnboardingScreen: React.FC = () => {
             onNext={handleFinish}
             onSkip={handleSkip}
             lottieAnimation={LottieAnimations.age}
+            step={1}
           />
         );
       case 3:
@@ -78,6 +80,7 @@ const OnboardingScreen: React.FC = () => {
             onNext={handleFinish}
             onSkip={handleSkip}
             lottieAnimation={LottieAnimations.skills}
+            step={2}
           />
         );
       default:
@@ -89,6 +92,7 @@ const OnboardingScreen: React.FC = () => {
             onNext={handleNext}
             onSkip={handleSkip}
             lottieAnimation={LottieAnimations.born}
+            step={3}
           />
         );
     }

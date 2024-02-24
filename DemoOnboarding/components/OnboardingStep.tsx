@@ -3,6 +3,7 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 import { LottieAnimations } from '../constants';
 import LottieView from 'lottie-react-native';
 import AnimatedLottieView from 'lottie-react-native';
+import StepIndicator from './StepIndicator';
 
 interface OnboardingStepProps {
   backgroundColor: string;
@@ -11,6 +12,7 @@ interface OnboardingStepProps {
   onNext: () => void;
   onSkip: () => void;
   lottieAnimation: keyof typeof LottieAnimations;
+  step: number;
 }
 
 const OnboardingStep: React.FC<OnboardingStepProps> = ({
@@ -19,7 +21,8 @@ const OnboardingStep: React.FC<OnboardingStepProps> = ({
   description,
   onNext,
   onSkip,
-  lottieAnimation
+  lottieAnimation,
+  step,
 }) => {
   const lottieRef = useRef<AnimatedLottieView|null>(null);
 
@@ -44,8 +47,11 @@ const OnboardingStep: React.FC<OnboardingStepProps> = ({
         loop={true}
         style={styles.lottie} 
       />
+      <StepIndicator steps={4} currentStep={step} />
+      {/* ! PUT HERE INPUT BOX BASED ON THE STEP */}
       <View style={styles.buttonContainer}>
         {/* change to touchable oppacity to change how they look and switch Nex to Finish on final step */}
+        {/* option to go back */}
         <Button title="Skip" onPress={onSkip} />
         <Button title="Next" onPress={onNext} />
       </View>
@@ -61,8 +67,11 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 48,
     color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center', 
+    lineHeight: 48, 
   },
   description: {
     fontSize: 16,
