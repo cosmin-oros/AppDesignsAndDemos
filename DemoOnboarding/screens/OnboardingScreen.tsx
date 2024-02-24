@@ -89,7 +89,7 @@ const OnboardingScreen: React.FC = () => {
             backgroundColor={currentColor}
             title="When were you born?"
             description=""
-            onNext={handleNext}
+            onNext={handleFinish}
             onSkip={handleSkip}
             lottieAnimation={LottieAnimations.born}
             step={3}

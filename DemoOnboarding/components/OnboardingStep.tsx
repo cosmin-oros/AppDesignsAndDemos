@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import { LottieAnimations } from '../constants';
 import LottieView from 'lottie-react-native';
 import AnimatedLottieView from 'lottie-react-native';
@@ -49,11 +49,16 @@ const OnboardingStep: React.FC<OnboardingStepProps> = ({
       />
       <StepIndicator steps={4} currentStep={step} />
       {/* ! PUT HERE INPUT BOX BASED ON THE STEP */}
-      <View style={styles.buttonContainer}>
+      <View style={styles.buttonsContainer}>
         {/* change to touchable oppacity to change how they look and switch Nex to Finish on final step */}
         {/* option to go back */}
-        <Button title="Skip" onPress={onSkip} />
-        <Button title="Next" onPress={onNext} />
+        {/* store the data somewhere */}
+        <TouchableOpacity style={styles.buttonContainer} onPress={onSkip}>
+          <Text style={styles.buttonText}>Skip</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.buttonContainer, {backgroundColor: 'black'}]} onPress={onNext}>
+          <Text style={styles.buttonText}>{step === 3 ? 'Finish' : 'Next'}</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -79,15 +84,30 @@ const styles = StyleSheet.create({
     color: 'white',
     marginBottom: 20,
   },
-  buttonContainer: {
+  buttonsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    flex: 1,
     width: '100%',
+    paddingBottom: 30,
   },
   lottie: {
     width: '100%',
     height: '40%',
-  }
+  },
+  buttonText: {
+    fontSize: 16,
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  buttonContainer: {
+    borderRadius: 30, 
+    width: 100,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default OnboardingStep;
