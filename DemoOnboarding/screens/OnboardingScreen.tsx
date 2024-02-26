@@ -7,7 +7,7 @@ import { LottieAnimations } from '../constants';
 const OnboardingScreen: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [currentColor, setCurrentColor] = useState('#8a2be2');
-  const backgroundColors = ['#8a2be2', '#ffd700', '#8a2be2', '#e75480'];
+  const backgroundColors = ['#8a2be2', '#cca300', '#8a2be2', '#e75480'];
 
   const handleNext = () => {
     if (currentStep < backgroundColors.length) {

@@ -1,9 +1,11 @@
-import React, { useEffect, useRef } from 'react';
-import { View, Text, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, Text, Button, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
 import { LottieAnimations } from '../constants';
 import LottieView from 'lottie-react-native';
 import AnimatedLottieView from 'lottie-react-native';
 import StepIndicator from './StepIndicator';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 interface OnboardingStepProps {
   backgroundColor: string;
@@ -25,6 +27,11 @@ const OnboardingStep: React.FC<OnboardingStepProps> = ({
   step,
 }) => {
   const lottieRef = useRef<AnimatedLottieView|null>(null);
+  const [name, setName] = useState('');
+  const [age, setAge] = useState('');
+  const [selectedSkill, setSelectedSkill] = useState(''); 
+  const [selectedDate, setSelectedDate] = useState('');
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
   useEffect(() => {
     if (lottieRef.current) {
@@ -34,6 +41,74 @@ const OnboardingStep: React.FC<OnboardingStepProps> = ({
       }, 100);
     }
   }, [lottieRef.current]);
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+
+  const handleDateConfirm = (date: Date) => {
+    setSelectedDate(date.toISOString().split('T')[0]); 
+    hideDatePicker();
+  };
+
+  const renderStepInput = () => {
+    switch (step) {
+      case 0:
+        return (
+          <TextInput
+            placeholder="Enter your name"
+            value={name}
+            onChangeText={setName}
+            style={styles.input}
+          />
+        );
+      case 1:
+        return (
+          <TextInput
+            placeholder="Enter your age"
+            value={age}
+            onChangeText={(text) => setAge(text.replace(/[^0-9]/g, ''))} 
+            keyboardType="numeric"
+            style={styles.input}
+          />
+        );
+      case 2:
+        return (
+          <RNPickerSelect
+            placeholder={{ label: 'Select a skill', value: null }}
+            onValueChange={(value) => setSelectedSkill(value)}
+            items={[
+              { label: 'Skill 1', value: 'Skill 1' },
+              { label: 'Skill 2', value: 'Skill 2' },
+              // Add more skills as needed
+            ]}
+          />
+        );
+      case 3:
+        return (
+          <View>
+            <TextInput
+              placeholder="Select a date"
+              value={selectedDate}
+              onFocus={() => showDatePicker()}
+              style={styles.input}
+            />
+            <DateTimePickerModal
+              isVisible={isDatePickerVisible}
+              mode="date"
+              onConfirm={handleDateConfirm}
+              onCancel={hideDatePicker}
+            />
+          </View>
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
     <View style={[styles.container, { backgroundColor }]}>
@@ -47,8 +122,10 @@ const OnboardingStep: React.FC<OnboardingStepProps> = ({
         loop={true}
         style={styles.lottie} 
       />
+      <View style={styles.inputContainer}>
+        {renderStepInput()}
+      </View>
       <StepIndicator steps={4} currentStep={step} />
-      {/* ! PUT HERE INPUT BOX BASED ON THE STEP */}
       <View style={styles.buttonsContainer}>
         {/* change to touchable oppacity to change how they look and switch Nex to Finish on final step */}
         {/* option to go back */}
@@ -107,6 +184,18 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  inputContainer: {
+    width: '90%',
+    backgroundColor: 'white',
+    borderRadius: 50,
+    marginBottom: '10%',
+    paddingHorizontal: '5%',
+  },
+  input: {
+    height: 50,
+    fontSize: 16,
+    color: 'gray',
   },
 });
 
