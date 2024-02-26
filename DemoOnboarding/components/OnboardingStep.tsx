@@ -139,9 +139,6 @@ const OnboardingStep: React.FC<OnboardingStepProps> = ({
       </View>
       <StepIndicator steps={4} currentStep={step} />
       <View style={styles.buttonsContainer}>
-        {/* change to touchable oppacity to change how they look and switch Nex to Finish on final step */}
-        {/* option to go back */}
-        {/* store the data somewhere */}
         <TouchableOpacity style={styles.buttonContainer} onPress={onSkip}>
           <Text style={styles.buttonText}>Skip</Text>
         </TouchableOpacity>

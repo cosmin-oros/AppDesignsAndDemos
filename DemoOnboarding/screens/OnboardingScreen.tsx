@@ -19,22 +19,22 @@ const OnboardingScreen: React.FC = () => {
       setCurrentColor(backgroundColors[currentStep]);
       setCurrentStep((prevStep) => prevStep + 1);
     } else {
-      // Handle logic when all steps are completed
+      // Navigate to another screen
     }
   };
 
   const handleFinish = () => {
-    if (currentStep < backgroundColors.length) {
-      setCurrentColor(backgroundColors[currentStep]);
-      setCurrentStep((prevStep) => prevStep + 1);
-    } else {
-      // Handle logic when all steps are completed
-    }
+    // Navigate to another screen
   };
 
   const handleBackPress = () => {
-    // Handle back button press
-  };
+  if (currentStep > 1) {
+    setCurrentStep((prevStep) => prevStep - 1);
+    setCurrentColor(backgroundColors[currentStep - 2]); 
+  } else {
+    // Handle back press on the first step
+  }
+};
 
   const handleIconPress = () => {
     // Handle icon press
@@ -60,7 +60,7 @@ const OnboardingScreen: React.FC = () => {
             backgroundColor={currentColor}
             title="What is your age?"
             description=""
-            onNext={handleFinish}
+            onNext={handleNext}
             onSkip={handleSkip}
             lottieAnimation={LottieAnimations.age}
             step={1}
@@ -72,7 +72,7 @@ const OnboardingScreen: React.FC = () => {
             backgroundColor={currentColor}
             title="What skills do you have?"
             description=""
-            onNext={handleFinish}
+            onNext={handleNext}
             onSkip={handleSkip}
             lottieAnimation={LottieAnimations.skills}
             step={2}
