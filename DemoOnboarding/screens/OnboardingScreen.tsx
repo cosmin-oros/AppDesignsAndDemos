@@ -33,6 +33,7 @@ const OnboardingScreen: React.FC = () => {
     setCurrentColor(backgroundColors[currentStep - 2]); 
   } else {
     // Handle back press on the first step
+    //
   }
 };
 
