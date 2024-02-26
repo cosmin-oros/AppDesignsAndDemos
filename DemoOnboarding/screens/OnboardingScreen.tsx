@@ -10,12 +10,8 @@ const OnboardingScreen: React.FC = () => {
   const backgroundColors = ['#8a2be2', '#cca300', '#8a2be2', '#e75480'];
 
   const handleNext = () => {
-    if (currentStep < backgroundColors.length) {
-      setCurrentColor(backgroundColors[currentStep]);
-      setCurrentStep((prevStep) => prevStep + 1);
-    } else {
-      // Handle logic when all steps are completed
-    }
+    setCurrentColor(backgroundColors[currentStep]);
+    setCurrentStep((prevStep) => prevStep + 1);
   };
 
   const handleSkip = () => {
@@ -28,7 +24,6 @@ const OnboardingScreen: React.FC = () => {
   };
 
   const handleFinish = () => {
-    // Handle logic when the "Finish" button is pressed
     if (currentStep < backgroundColors.length) {
       setCurrentColor(backgroundColors[currentStep]);
       setCurrentStep((prevStep) => prevStep + 1);

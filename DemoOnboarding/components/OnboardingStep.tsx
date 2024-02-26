@@ -6,6 +6,7 @@ import LottieView from 'lottie-react-native';
 import AnimatedLottieView from 'lottie-react-native';
 import StepIndicator from './StepIndicator';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { useUserStore } from '../hooks/useUserStore';
 
 interface OnboardingStepProps {
   backgroundColor: string;
@@ -32,6 +33,7 @@ const OnboardingStep: React.FC<OnboardingStepProps> = ({
   const [selectedSkill, setSelectedSkill] = useState(''); 
   const [selectedDate, setSelectedDate] = useState('');
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const { user, updateUserProfile } = useUserStore();
 
   useEffect(() => {
     if (lottieRef.current) {
@@ -41,6 +43,16 @@ const OnboardingStep: React.FC<OnboardingStepProps> = ({
       }, 100);
     }
   }, [lottieRef.current]);
+
+  const handleNextOrFinishPress = () => {
+    onNext();
+    updateUserProfile({
+      name,
+      age: parseInt(age),
+      date: selectedDate,
+      skills: [selectedSkill],
+    });
+  };
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -133,7 +145,7 @@ const OnboardingStep: React.FC<OnboardingStepProps> = ({
         <TouchableOpacity style={styles.buttonContainer} onPress={onSkip}>
           <Text style={styles.buttonText}>Skip</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.buttonContainer, {backgroundColor: 'black'}]} onPress={onNext}>
+        <TouchableOpacity style={[styles.buttonContainer, {backgroundColor: 'black'}]} onPress={handleNextOrFinishPress}>
           <Text style={styles.buttonText}>{step === 3 ? 'Finish' : 'Next'}</Text>
         </TouchableOpacity>
       </View>
