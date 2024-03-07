@@ -2,6 +2,7 @@ import React from "react";
 import { SafeAreaView, View, StyleSheet, Platform, StatusBar } from "react-native";
 import TopBar from "../components/TopBar";
 import { Colors } from "../constants";
+import SelectionSection from "../components/SelectionSection";
 
 const HomeScreen: React.FC = () => {
   const handleLeftIconPress = () => {
@@ -13,8 +14,9 @@ const HomeScreen: React.FC = () => {
   };
 
   return (
-    <SafeAreaView style={[styles.content, { backgroundColor: Colors.orangeBackground }]}>
-      <TopBar onLeftIconPress={handleLeftIconPress} onRightIconPress={handleRightIconPress} color={Colors.orangeBackground}/>
+    <SafeAreaView style={[styles.content, { backgroundColor: Colors.whiteBackground }]}>
+      <TopBar onLeftIconPress={handleLeftIconPress} onRightIconPress={handleRightIconPress} color={Colors.whiteBackground}/>
+      <SelectionSection title="Hi, name" subtitle="What's today's taste?"/>
     </SafeAreaView>
   );
 };
